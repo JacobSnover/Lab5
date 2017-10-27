@@ -20,9 +20,25 @@ namespace Lab5
                 {
                     Console.Write("If your dice had 10 sides or less, what would you prefer? ");
                     string input = Console.ReadLine();
-                    int roll = DiceRoller(input);
+                    int sides;
+                    while (true)
+                    {
+
+                        if (!int.TryParse(input, out sides) || sides <= 0 || sides > 10)
+                        {
+                            Console.WriteLine($"Sorry but {input}, is not a proper response");
+                            Console.Write("If your dice had 10 sides or less, what would you prefer? ");
+                            input = Console.ReadLine();
+                        }
+                        else
+                        {
+
+                            break;
+                        }
+                    }
+                    int roll = DiceRoller(sides);
                     Console.WriteLine($"{roll}");
-                    int roll2 = DiceRoller(input);
+                    int roll2 = DiceRoller(sides);
                     Console.WriteLine($"{roll2}");
                     while (true)
                     {
@@ -52,29 +68,13 @@ namespace Lab5
 
             }
 
-
-
         }
-        public static int DiceRoller(string input)
+        public static int DiceRoller(int sides)
         {
-            while (true)
-            {
-
-                if (!int.TryParse(input, out int sides) || sides <= 0 || sides > 10)
-                {
-                    Console.WriteLine($"Sorry but {input}, is not a proper response");
-                    Console.Write("If your dice had 10 sides or less, what would you prefer? ");
-                    input = Console.ReadLine();
-                }
-                else
-                {
-                    Random r1 = new Random();
-                    int roll = r1.Next(1, sides);
-                    return roll;
-
-                }
-            }
-
+           
+            Random r1 = new Random();
+            int roll = r1.Next(1, sides);
+            return roll;
         }
 
     }
